@@ -10,10 +10,10 @@ import {
   getAllCourse,
   getAllCourses,
   getCourseByUser,
+  getCourseRecommendations,
   getSingleCourse,
   replyToReview,
   uploadCourse,
-  getCourseRecommendations,
 } from "../controllers/course.controller";
 import { authorizeRoles, isAuthenticated } from "../middleware/auth";
 import { updateAccessToken } from "../controllers/user.controller";
@@ -87,7 +87,6 @@ courseRouter.delete(
   authorizeRoles("admin"),
   deleteCourse
 );
-
 courseRouter.get("/recommendations", getCourseRecommendations);
 
 export default courseRouter;

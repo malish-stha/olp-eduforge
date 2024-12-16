@@ -428,7 +428,7 @@ const CourseContentMedia: React.FC<CourseContentMediaProps> = ({
   );
 };
 
-// export default CourseContentMedia;
+export default CourseContentMedia;
 
 // "use client";
 

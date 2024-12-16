@@ -12,7 +12,6 @@ import orderRouter from "./routes/order.route";
 import notificatioRouter from "./routes/notification.route";
 import analyticsRouter from "./routes/analytics.route";
 import layoutRouter from "./routes/layout.route";
-import progressRouter from "./routes/progress.route";
 
 export const app = express();
 
@@ -34,7 +33,6 @@ app.use(
   userRouter,
   courseRouter,
   orderRouter,
-  progressRouter,
   notificatioRouter,
   analyticsRouter,
   layoutRouter

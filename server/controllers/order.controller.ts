@@ -1,20 +1,20 @@
-import { NextFunction, Response, Request } from "express";
+import { NextFunction, Response, Request } from 'express';
 
-import { CatchAsyncError } from "../middleware/catchAsyncErrors";
-import ErrorHandler from "../utils/ErrorHandler";
+import { CatchAsyncError } from '../middleware/catchAsyncErrors';
+import ErrorHandler from '../utils/ErrorHandler';
 
-import OrderModel, { IOrder } from "../models/order.model";
-import userModel from "../models/user.model";
-import CourseModel, { ICourse } from "../models/course.model";
-import NotificationModel from "../models/notification.model";
-import path from "path";
-import ejs from "ejs";
-import sendMail from "../utils/sendMail";
-import { getAllOrdersService, newOrder } from "../services/order.service";
-import { redis } from "../utils/redis";
+import OrderModel, { IOrder } from '../models/order.model';
+import userModel from '../models/user.model';
+import CourseModel, { ICourse } from '../models/course.model';
+import NotificationModel from '../models/notification.model';
+import path from 'path';
+import ejs from 'ejs';
+import sendMail from '../utils/sendMail';
+import { getAllOrdersService, newOrder } from '../services/order.service';
+import { redis } from '../utils/redis';
 
-require("dotenv").config();
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+require('dotenv').config();
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // create order
 export const createOrder = CatchAsyncError(
@@ -23,14 +23,14 @@ export const createOrder = CatchAsyncError(
       const { courseId, payment_info } = req.body as IOrder;
 
       if (payment_info) {
-        if ("id" in payment_info) {
+        if ('id' in payment_info) {
           const paymentIntentId = payment_info.id;
           const paymentIntent = await stripe.paymentIntents.retrieve(
             paymentIntentId
           );
 
-          if (paymentIntent.status !== "succeeded") {
-            return next(new ErrorHandler("Payment not authorized", 400));
+          if (paymentIntent.status !== 'succeeded') {
+            return next(new ErrorHandler('Payment not authorized', 400));
           }
         }
       }
@@ -43,14 +43,14 @@ export const createOrder = CatchAsyncError(
 
       if (courseExistInUser) {
         return next(
-          new ErrorHandler("You have already purchased this course.", 404)
+          new ErrorHandler('You have already purchased this course.', 404)
         );
       }
 
       const course: ICourse | null = await CourseModel.findById(courseId);
 
       if (!course) {
-        return next(new ErrorHandler("Course not found", 404));
+        return next(new ErrorHandler('Course not found', 404));
       }
 
       const data: any = {
@@ -64,16 +64,16 @@ export const createOrder = CatchAsyncError(
           _id: course._id.toString().slice(0, 6),
           name: course.name,
           price: course.price,
-          date: new Date().toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
+          date: new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
           }),
         },
       };
 
       const html = await ejs.renderFile(
-        path.join(__dirname, "../mails/order-confirmation.ejs"),
+        path.join(__dirname, '../mails/order-confirmation.ejs'),
         { order: mailData }
       );
 
@@ -81,8 +81,8 @@ export const createOrder = CatchAsyncError(
         if (user) {
           await sendMail({
             email: user.email,
-            subject: "Order confirmation",
-            template: "order-confirmation.ejs",
+            subject: 'Order confirmation',
+            template: 'order-confirmation.ejs',
             data: mailData,
           });
         }
@@ -98,7 +98,7 @@ export const createOrder = CatchAsyncError(
 
       await NotificationModel.create({
         user: user?._id,
-        title: "New Order",
+        title: 'New Order',
         message: `You have a new order from ${course?.name} `,
       });
 
@@ -139,9 +139,9 @@ export const stripePayment = CatchAsyncError(
     try {
       const paymentIntent = await stripe.paymentIntents.create({
         amount: req.body.amount * 100, //amount in rupees
-        currency: "npr",
+        currency: 'INR',
         metadata: {
-          company: "Leanly.education",
+          company: 'Leanly.education',
         },
         automatic_payment_methods: {
           enabled: true,
