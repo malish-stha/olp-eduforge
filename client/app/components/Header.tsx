@@ -18,7 +18,6 @@ import {
   useLogOutQuery,
   useSocialAuthMutation,
 } from "@/redux/features/auth/authApi";
-import Searchbar from "./search/Searchbar";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 
 type Props = {
@@ -106,9 +105,6 @@ const Header: FC<Props> = ({ setOpen, route, setRoute, open, activeItem }) => {
                 >
                   EduForge
                 </Link>
-              </div>
-              <div>
-                <Searchbar />
               </div>
             </div>
 

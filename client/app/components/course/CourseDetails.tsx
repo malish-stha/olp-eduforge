@@ -344,7 +344,7 @@ const CourseDetails: React.FC<CourseDataProps> = ({
                   {/* Apply Coupon*/}
                   {!isPurchased && (
                     <div>
-                      <input
+                      {/* <input
                         type="text"
                         placeholder="Enter Coupon Code"
                         className="w-[90%] bg-gray-200 p-2 rounded-lg mb-2"
@@ -352,7 +352,7 @@ const CourseDetails: React.FC<CourseDataProps> = ({
 
                       <button className="bg-[#37a39a] mx-auto text-white py-2 px-4 rounded-lg w-[90%] mb-2">
                         Apply Coupon
-                      </button>
+                      </button> */}
 
                       <p className="text-sm text-gray-500 mb-2 text-center">
                         30-Day Money-Back Guarantee

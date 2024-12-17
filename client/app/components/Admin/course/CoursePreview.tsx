@@ -104,7 +104,7 @@ const CoursePreview: React.FC<Props> = ({
                       Lifetime Access • Certificate of Completion
                     </p>
                     {/* Coupon code input */}
-                    <div className="mb-4 mt-4">
+                    {/* <div className="mb-4 mt-4">
                       <input
                         type="text"
                         placeholder="Apply Coupon"
@@ -113,7 +113,7 @@ const CoursePreview: React.FC<Props> = ({
                       <button className="bg-blue-600 text-white py-2 px-4 rounded-lg w-full mt-2">
                         Apply Coupon
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
