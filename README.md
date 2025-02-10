@@ -52,7 +52,7 @@ cd server
 Install the dependencies:
 
 ```sh
-pnpm install
+npm install
 ```
 
 Create a `.env` file in the `server` directory with the following details:
@@ -91,7 +91,7 @@ STRIPE_SECRET_KEY = <your-stripe-secret-key>
 Run the server:
 
 ```sh
-pnpm run dev
+npm run dev
 ```
 
 The server should now be running at **http://localhost:8000**.
@@ -107,7 +107,7 @@ cd client
 Install the dependencies:
 
 ```sh
-pnpm install
+npm install
 ```
 
 Create a `.env` file in the `client` directory with the following details:
@@ -132,7 +132,7 @@ SECRET = <your-secret-key>
 Run the client:
 
 ```sh
-pnpm run dev
+npm run dev
 ```
 
 The client should now be running at **http://localhost:3000**.
